@@ -237,6 +237,16 @@ docker ps -a
 docker start "nombre contenedor"
 ```
 
+- Detener y borrar contenedores **en ejecución**:
+
+```bash
+docker stop nombre_del_contenedor
+docker stop $(docker ps -q) --> detiene todos los contenedores
+docker rm nombre_del_contenedor
+docker rm -f nombre_del_contenedor
+docker container prune
+```
+
 
 ## 11. Conclusión
 
