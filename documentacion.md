@@ -235,6 +235,7 @@ git config --global user.email "josseamar@alu.edu.gva.es"
 docker ps
 docker ps -a
 docker start "nombre contenedor"
+docker-compose up -d
 ```
 
 - Detener y borrar contenedores **en ejecución**:
