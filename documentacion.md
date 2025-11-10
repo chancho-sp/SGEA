@@ -208,7 +208,7 @@ git config --global user.email "josseamar@alu.edu.gva.es"
   ```bash
   tar cvf micomprimido.tar.xz -I 'xz -9'
   ```
-- Comprimir un archivo al máximo nivel:
+- Descomprimir un archivo:
   ```bash
   tar -xvf micomprimido.tar.xz
   ```
