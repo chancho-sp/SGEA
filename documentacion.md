@@ -208,12 +208,16 @@ git config --global user.email "josseamar@alu.edu.gva.es"
   ```bash
   tar cvf micomprimido.tar.xz -I 'xz -9'
   ```
+- Comprimir un archivo al máximo nivel:
+  ```bash
+  tar -xvf micomprimido.tar.xz
+  ```
 - Subir archivos a github
-```bash
-git add .
-git commit -m "Actualización guía instalación Odoo 18"
-git push origin main
-```
+  ```bash
+  git add .
+  git commit -m "Actualización guía instalación Odoo 18"
+  git push origin main
+  ```
 ---
 
 ## 10. Comandos rápidos docker
