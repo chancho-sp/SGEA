@@ -4,14 +4,14 @@ En este documento se detalla paso a paso cómo instalar **Odoo 18** en un servid
 
 ---
 
-## 🖥️ 1. Preparación del entorno
+## 1. Preparación del entorno
 
 Lo primero será crear una máquina virtual con **Ubuntu Server**.  
 Para ello, usaremos **VirtualBox**:
 
 ---
 
-## 🌐 2. Configuración inicial del sistema
+## 2. Configuración inicial del sistema
 
 ### 2.1 Cambiar el idioma (locales)
 
@@ -29,11 +29,11 @@ sudo dpkg-reconfigure keyboard-configuration
 
 Selecciona el modelo adecuado y el idioma **Español**.
 
-> 🔁 **Importante:** Reinicia el sistema después de aplicar los cambios.
+> **Importante:** Reinicia el sistema después de aplicar los cambios.
 
 ---
 
-## 🔐 3. Conexión SSH y red
+## 3. Conexión SSH y red
 
 Actualiza el sistema e instala el servidor SSH para conectarte desde tu máquina principal:
 
@@ -61,7 +61,7 @@ ssh usuario@IP_DEL_SERVIDOR
 
 ---
 
-## 🗄️ 4. Instalación de PostgreSQL
+## 4. Instalación de PostgreSQL
 
 Instala PostgreSQL, la base de datos que usará Odoo:
 
@@ -71,9 +71,9 @@ sudo apt install postgresql -y
 
 ---
 
-## ⚙️ 5. Instalación de Odoo 18 (vía repositorio oficial)
+## 5. Instalación de Odoo 18 (vía repositorio oficial)
 
-> ⚠️ **Nota:** Al momento de redacción (noviembre de 2025), Odoo 18 puede encontrarse en versión *nightly* o de desarrollo, por lo que el repositorio podría no estar disponible.  
+> **Nota:** Al momento de redacción (noviembre de 2025), Odoo 18 puede encontrarse en versión *nightly* o de desarrollo, por lo que el repositorio podría no estar disponible.  
 > Si ocurre un error, utiliza la instalación mediante **Docker** (ver sección siguiente).
 
 Agrega la clave GPG y el repositorio:
@@ -89,7 +89,7 @@ sudo apt-get install odoo -y
 
 ---
 
-## 🐳 6. Instalación de Odoo 18 mediante Docker (recomendado)
+## 6. Instalación de Odoo 18 mediante Docker (recomendado)
 
 Instalaremos docker para poder ejecutar Odoo en contenedores. Esto nos permitirá desplegar nuestra instalación de Odoo fácilmente en cualquier otra máquina.
 
@@ -125,7 +125,7 @@ sudo systemctl status docker
 
 ---
 
-## 🧱 7. Crear contenedores para Odoo y PostgreSQL
+## 7. Crear contenedores para Odoo y PostgreSQL
 
 Crearemos una red Docker, un contenedor de base de datos PostgreSQL y otro con el servidor Odoo.
 
@@ -149,7 +149,7 @@ docker run -d   -p 8069:8069   --name odooprod   --network odoo-net   odoo:18
 
 ---
 
-## 🌍 8. Acceder a Odoo 18
+## 8. Acceder a Odoo 18
 
 Comprueba la IP de tu servidor:
 
@@ -168,7 +168,7 @@ Introduce tus datos y crea tu primera base de datos para comenzar a usar Odoo 18
 
 ---
 
-## 🧬 9. Conexión con GitHub
+## 9. Conexión con GitHub
 
 Configura tu nombre y correo de usuario:
 
@@ -216,7 +216,15 @@ git push origin main
 ```
 ---
 
-## 10. Conclusión
+## 10. Comandos rápidos docker
+```bash
+docker ps
+docker ps -a
+docker start "nombre contenedor"
+```
+
+
+## 11. Conclusión
 
 Con estos pasos, tendrás **Odoo 18** funcionando correctamente sobre **Ubuntu Server**, con base de datos **PostgreSQL** y contenedores **Docker** configurados para producción.  
 
