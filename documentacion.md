@@ -218,6 +218,16 @@ git config --global user.email "josseamar@alu.edu.gva.es"
   git commit -m "Actualización guía instalación Odoo 18"
   git push origin main
   ```
+- Orden de archivos:
+  ```bash
+  tu-proyecto/
+    ├─ docker-compose.yml
+    ├─ volumesOdoo/
+    
+        ├─ addons/ (dentro de volumesOdoo)
+        ├─ odoo-web-data/ (dentro de volumesOdoo)
+        └─ dataPostgreSQL/ (dentro de volumesOdoo)
+  ```
 ---
 
 ## 10. Comandos rápidos docker
