@@ -126,15 +126,13 @@ views/vistas.xml
 vista lista
 
 ```bash
-<record id="view_modelo_list" model="ir.ui.view">
-    <field name="name">modulo.modelo.list</field>
-    <field name="model">modulo.modelo</field>
+<record id="view_academia_curso_list" model="ir.ui.view">
+    <field name="name">academia.curso.list</field>
+    <field name="model">academia.curso</field>
     <field name="arch" type="xml">
         <list>
             <field name="name"/>
             <field name="precio"/>
-            <field name="cantidad"/>
-            <field name="total"/>
         </list>
     </field>
 </record>
@@ -143,20 +141,139 @@ vista lista
 vista formulario
 
 ```bash
-<record id="view_modelo_list" model="ir.ui.view">
-    <field name="name">modulo.modelo.list</field>
+<record id="view_modelo_form" model="ir.ui.view">
+    <field name="name">modulo.modelo.form</field>
     <field name="model">modulo.modelo</field>
     <field name="arch" type="xml">
-        <list>
-            <field name="name"/>
-            <field name="precio"/>
-            <field name="cantidad"/>
-            <field name="total"/>
-        </list>
+        <form>
+            <sheet>
+                <group>
+                    <field name="name"/>
+                    <field name="precio"/>
+                    <field name="cantidad"/>
+                    <field name="total" readonly="1"/>
+                </group>
+            </sheet>
+        </form>
     </field>
 </record>
 ```
 Un solo nodo raíz (list, form, etc.)
+
+Ejemplo completo:
+
+```bash
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- ===================== -->
+    <!-- VISTAS CURSO -->
+    <!-- ===================== -->
+
+    <!-- Lista Curso -->
+    <record id="view_academia_curso_list" model="ir.ui.view">
+        <field name="name">academia.curso.list</field>
+        <field name="model">academia.curso</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="precio"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Formulario Curso -->
+    <record id="view_academia_curso_form" model="ir.ui.view">
+        <field name="name">academia.curso.form</field>
+        <field name="model">academia.curso</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="precio"/>
+                        <field name="alumno_ids">
+                            <tree>
+                                <field name="name"/>
+                                <field name="edad"/>
+                                <field name="coste"/>
+                            </tree>
+                        </field>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Acción Curso -->
+    <record id="action_academia_curso" model="ir.actions.act_window">
+        <field name="name">Cursos</field>
+        <field name="res_model">academia.curso</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- ===================== -->
+    <!-- VISTAS ALUMNO -->
+    <!-- ===================== -->
+
+    <!-- Lista Alumno -->
+    <record id="view_academia_alumno_list" model="ir.ui.view">
+        <field name="name">academia.alumno.list</field>
+        <field name="model">academia.alumno</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="edad"/>
+                <field name="coste"/>
+                <field name="curso_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Formulario Alumno -->
+    <record id="view_academia_alumno_form" model="ir.ui.view">
+        <field name="name">academia.alumno.form</field>
+        <field name="model">academia.alumno</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="edad"/>
+                        <field name="curso_id"/>
+                        <field name="coste"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Acción Alumno -->
+    <record id="action_academia_alumno" model="ir.actions.act_window">
+        <field name="name">Alumnos</field>
+        <field name="res_model">academia.alumno</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- ===================== -->
+    <!-- MENÚ PRINCIPAL -->
+    <!-- ===================== -->
+
+    <menuitem id="menu_academia_root" name="Academia"/>
+
+    <menuitem id="menu_academia_curso"
+              name="Cursos"
+              parent="menu_academia_root"
+              action="action_academia_curso"/>
+
+    <menuitem id="menu_academia_alumno"
+              name="Alumnos"
+              parent="menu_academia_root"
+              action="action_academia_alumno"/>
+
+</odoo>
+
+```
 
 ---
 
