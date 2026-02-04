@@ -130,10 +130,10 @@ vista lista
     <field name="name">academia.curso.list</field>
     <field name="model">academia.curso</field>
     <field name="arch" type="xml">
-        <list>
+        <tree>
             <field name="name"/>
             <field name="precio"/>
-        </list>
+        </tree>
     </field>
 </record>
 ```
