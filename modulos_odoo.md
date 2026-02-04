@@ -110,9 +110,11 @@ security/ir.model.access.csv
 
 ```bash
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_modelo_user,access.modelo.user,model_modulo_modelo,base.group_user,1,1,1,1
+access_academia_curso_user,access.academia.curso.user,model_academia_curso,base.group_user,1,1,1,1
+access_academia_alumno_user,access.academia.alumno.user,model_academia_alumno,base.group_user,1,1,1,1
 ```
-
+model_modulo_modelo (por ejemplo model_academia_curso) debe llamarse obligatoriamente así, coincidiendo con el
+nombre del modelo (academia.curso en este caso), si no no funcionará.
 ---
 
 ## 5. Crear vistas
