@@ -8,6 +8,7 @@ Guía paso a paso para crear módulos en Odoo.
 
 Definir el módulo, ejemplo:
 
+```bash
 {
     'name': 'Nombre del módulo',
     'version': '1.0',
@@ -24,6 +25,7 @@ Definir el módulo, ejemplo:
     'application': True,
 }
 
+```
 
 ---
 
