@@ -31,13 +31,13 @@ Definir el módulo, ejemplo:
 
 ## 2. Init.py
 
-nombre_modulo/__init__.py
+nombre_modulo/__init__.py (importar la carpeta)
 
 ```bash
 from . import models
 ```
 
-nombre_modulo/models/__init__.py
+nombre_modulo/models/__init__.py (importar el archivo o archivos)
 
 ```bash
 from . import modelo
