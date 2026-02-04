@@ -175,10 +175,10 @@ Ejemplo completo:
         <field name="name">academia.curso.list</field>
         <field name="model">academia.curso</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="name"/>
                 <field name="precio"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -193,11 +193,11 @@ Ejemplo completo:
                         <field name="name"/>
                         <field name="precio"/>
                         <field name="alumno_ids">
-                            <tree>
+                            <list>
                                 <field name="name"/>
                                 <field name="edad"/>
                                 <field name="coste"/>
-                            </tree>
+                            </list>
                         </field>
                     </group>
                 </sheet>
@@ -209,7 +209,7 @@ Ejemplo completo:
     <record id="action_academia_curso" model="ir.actions.act_window">
         <field name="name">Cursos</field>
         <field name="res_model">academia.curso</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
     </record>
 
     <!-- ===================== -->
@@ -221,12 +221,12 @@ Ejemplo completo:
         <field name="name">academia.alumno.list</field>
         <field name="model">academia.alumno</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="name"/>
                 <field name="edad"/>
                 <field name="coste"/>
                 <field name="curso_id"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -252,7 +252,7 @@ Ejemplo completo:
     <record id="action_academia_alumno" model="ir.actions.act_window">
         <field name="name">Alumnos</field>
         <field name="res_model">academia.alumno</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
     </record>
 
     <!-- ===================== -->
