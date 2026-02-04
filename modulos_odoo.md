@@ -275,6 +275,36 @@ Ejemplo completo:
 
 ```
 
+vista de cursos con alumnos
+
+```bash
+<record id="view_academia_curso_form" model="ir.ui.view">
+    <field name="name">academia.curso.form</field>
+    <field name="model">academia.curso</field>
+    <field name="arch" type="xml">
+        <form>
+            <sheet>
+                <group>
+                    <field name="name"/>
+                    <field name="precio"/>
+                </group>
+                <notebook>
+                    <page string="Alumnos">
+                        <field name="alumno_ids">
+                            <tree>
+                                <field name="name"/>
+                                <field name="edad"/>
+                                <field name="coste"/>
+                            </tree>
+                        </field>
+                    </page>
+                </notebook>
+            </sheet>
+        </form>
+    </field>
+</record>
+
+```
 ---
 
 ## 6. Crear acciones y menús
