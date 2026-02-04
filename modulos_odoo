@@ -29,49 +29,52 @@ Definir el módulo, ejemplo:
 
 ## 2. Init.py
 
-```bash
-sudo dpkg-reconfigure locales
-```
-
-Selecciona `es_ES.UTF-8` como opción predeterminada.
-
-### 2.2 Configurar el teclado
+nombre_modulo/__init__.py
 
 ```bash
-sudo dpkg-reconfigure keyboard-configuration
+from . import models
 ```
 
-Selecciona el modelo adecuado y el idioma **Español**.
+nombre_modulo/models/__init__.py
 
-> **Importante:** Reinicia el sistema después de aplicar los cambios.
+```bash
+from . import modelo
+```
 
 ---
 
-## 3. Conexión SSH y red
+## 3. Crear el modelo
 
-Actualiza el sistema e instala el servidor SSH para conectarte desde tu máquina principal:
-
-```bash
-sudo apt update
-sudo apt install openssh-server -y
-```
-
-Cambia la red de **NAT** a **Adaptador puente** en VirtualBox.  
-Luego ejecuta:
+Crear un archivo por modelo:
 
 ```bash
-ip a
+models/modelo.py
 ```
 
-para conocer la IP del servidor.
-
-Desde tu máquina anfitriona, conéctate vía SSH:
+Ejemplo:
 
 ```bash
-ssh usuario@IP_DEL_SERVIDOR
-```
+from odoo import models, fields, api
 
-(Acepta con `yes` y escribe la contraseña del usuario de tu servidor Ubuntu.)
+class Modelo(models.Model):
+    _name = 'modulo.modelo'
+    _description = 'Modelo'
+
+    name = fields.Char(string='Nombre', required=True)
+    precio = fields.Float(string='Precio')
+    cantidad = fields.Integer(string='Cantidad')
+
+    total = fields.Float(
+        string='Total',
+        compute='_compute_total',
+        store=True
+    )
+
+    @api.depends('precio', 'cantidad')
+    def _compute_total(self):
+        for record in self:
+            record.total = record.precio * record.cantidad
+```
 
 ---
 
