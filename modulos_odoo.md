@@ -58,24 +58,48 @@ Ejemplo:
 ```bash
 from odoo import models, fields, api
 
-class Modelo(models.Model):
-    _name = 'modulo.modelo'
-    _description = 'Modelo'
+class Curso(models.Model):
+    _name = 'academia.curso'
+    _description = 'Curso'
 
     name = fields.Char(string='Nombre', required=True)
     precio = fields.Float(string='Precio')
-    cantidad = fields.Integer(string='Cantidad')
 
-    total = fields.Float(
-        string='Total',
-        compute='_compute_total',
+    alumno_ids = fields.One2many(
+        comodel_name='academia.alumno',
+        inverse_name='curso_id',
+        string='Alumnos'
+    )
+
+
+class Alumno(models.Model):
+    _name = 'academia.alumno'
+    _description = 'Alumno'
+
+    name = fields.Char(string='Nombre', required=True)
+    edad = fields.Integer(string='Edad')
+
+    curso_id = fields.Many2one(
+        comodel_name='academia.curso',
+        string='Curso',
+        required=True,
+        ondelete='cascade'
+    )
+
+    coste = fields.Float(
+        string='Coste del curso',
+        compute='_compute_coste',
         store=True
     )
 
-    @api.depends('precio', 'cantidad')
-    def _compute_total(self):
-        for record in self:
-            record.total = record.precio * record.cantidad
+    @api.depends('curso_id.precio')
+    def _compute_coste(self):
+        for alumno in self:
+            if alumno.curso_id:
+                alumno.coste = alumno.curso_id.precio + 100
+            else:
+                alumno.coste = 0
+
 ```
 
 ---
