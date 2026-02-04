@@ -40,7 +40,7 @@ from . import models
 nombre_modulo/models/__init__.py (importar el archivo o archivos)
 
 ```bash
-from . import modelo
+from . import models
 ```
 
 ---
@@ -58,47 +58,26 @@ Ejemplo:
 ```bash
 from odoo import models, fields, api
 
-class Curso(models.Model):
-    _name = 'academia.curso'
-    _description = 'Curso'
+class Clase(models.Model):
+    _name = 'modulo.clase'
+    _description = 'Clase'
 
     name = fields.Char(string='Nombre', required=True)
     precio = fields.Float(string='Precio')
 
-    alumno_ids = fields.One2many(
-        comodel_name='academia.alumno',
-        inverse_name='curso_id',
-        string='Alumnos'
+    Clase_id = fields.One2many(
+        comodel_name='modulo.Clase',
+        inverse_name='Clase_id',
+        string='Clase'
     )
 
-
-class Alumno(models.Model):
-    _name = 'academia.alumno'
-    _description = 'Alumno'
-
-    name = fields.Char(string='Nombre', required=True)
-    edad = fields.Integer(string='Edad')
-
-    curso_id = fields.Many2one(
-        comodel_name='academia.curso',
-        string='Curso',
-        required=True,
-        ondelete='cascade'
-    )
-
-    coste = fields.Float(
-        string='Coste del curso',
-        compute='_compute_coste',
-        store=True
-    )
-
-    @api.depends('curso_id.precio')
+    @api.depends('Clase_id.coste')
     def _compute_coste(self):
-        for alumno in self:
-            if alumno.curso_id:
-                alumno.coste = alumno.curso_id.precio + 100
+        for Clase in self:
+            if modulo.Clase_id:
+                modulo.Clase = Clase.Clase_id.precio * Clase.Clase_id.cantidad
             else:
-                alumno.coste = 0
+                Clase.coste = 0
 
 ```
 
@@ -110,12 +89,12 @@ security/ir.model.access.csv
 
 ```bash
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_academia_curso_user,access.academia.curso.user,model_academia_curso,base.group_user,1,1,1,1
-access_academia_alumno_user,access.academia.alumno.user,model_academia_alumno,base.group_user,1,1,1,1
+access_modulo_clase_user,access.modulo.clase.user,model_modulo_clase,base.group_user,1,1,1,1
+access_modulo_clase2_user,access.modulo.clase2.user,model_modulo_clase,base.group_user,1,1,1,1
 ```
 
-model_modulo_modelo (por ejemplo model_academia_curso) debe llamarse obligatoriamente así, coincidiendo con el
-nombre del modelo (academia.curso en este caso), si no no funcionará.
+model_modulo_modelo (por ejemplo model_videojuego_juego) debe llamarse obligatoriamente así, coincidiendo con el
+nombre del modelo (videojuego.juego en este caso), si no no funcionará.
 
 ---
 
@@ -126,9 +105,9 @@ views/vistas.xml
 vista lista
 
 ```bash
-<record id="view_academia_curso_list" model="ir.ui.view">
-    <field name="name">academia.curso.list</field>
-    <field name="model">academia.curso</field>
+<record id="view_modulo_clase_list" model="ir.ui.view">
+    <field name="name">modulo.clase.list</field>
+    <field name="model">modulo.clase</field>
     <field name="arch" type="xml">
         <list>
             <field name="name"/>
@@ -142,8 +121,8 @@ vista formulario
 
 ```bash
 <record id="view_modelo_form" model="ir.ui.view">
-    <field name="name">modulo.modelo.form</field>
-    <field name="model">modulo.modelo</field>
+    <field name="name">modulo.clase.form</field>
+    <field name="model">modulo.clase</field>
     <field name="arch" type="xml">
         <form>
             <sheet>
@@ -160,151 +139,6 @@ vista formulario
 ```
 Un solo nodo raíz (list, form, etc.)
 
-Ejemplo completo:
-
-```bash
-<?xml version="1.0" encoding="UTF-8"?>
-<odoo>
-
-    <!-- ===================== -->
-    <!-- VISTAS CURSO -->
-    <!-- ===================== -->
-
-    <!-- Lista Curso -->
-    <record id="view_academia_curso_list" model="ir.ui.view">
-        <field name="name">academia.curso.list</field>
-        <field name="model">academia.curso</field>
-        <field name="arch" type="xml">
-            <list>
-                <field name="name"/>
-                <field name="precio"/>
-            </list>
-        </field>
-    </record>
-
-    <!-- Formulario Curso -->
-    <record id="view_academia_curso_form" model="ir.ui.view">
-        <field name="name">academia.curso.form</field>
-        <field name="model">academia.curso</field>
-        <field name="arch" type="xml">
-            <form>
-                <sheet>
-                    <group>
-                        <field name="name"/>
-                        <field name="precio"/>
-                        <field name="alumno_ids">
-                            <list>
-                                <field name="name"/>
-                                <field name="edad"/>
-                                <field name="coste"/>
-                            </list>
-                        </field>
-                    </group>
-                </sheet>
-            </form>
-        </field>
-    </record>
-
-    <!-- Acción Curso -->
-    <record id="action_academia_curso" model="ir.actions.act_window">
-        <field name="name">Cursos</field>
-        <field name="res_model">academia.curso</field>
-        <field name="view_mode">list,form</field>
-    </record>
-
-    <!-- ===================== -->
-    <!-- VISTAS ALUMNO -->
-    <!-- ===================== -->
-
-    <!-- Lista Alumno -->
-    <record id="view_academia_alumno_list" model="ir.ui.view">
-        <field name="name">academia.alumno.list</field>
-        <field name="model">academia.alumno</field>
-        <field name="arch" type="xml">
-            <list>
-                <field name="name"/>
-                <field name="edad"/>
-                <field name="coste"/>
-                <field name="curso_id"/>
-            </list>
-        </field>
-    </record>
-
-    <!-- Formulario Alumno -->
-    <record id="view_academia_alumno_form" model="ir.ui.view">
-        <field name="name">academia.alumno.form</field>
-        <field name="model">academia.alumno</field>
-        <field name="arch" type="xml">
-            <form>
-                <sheet>
-                    <group>
-                        <field name="name"/>
-                        <field name="edad"/>
-                        <field name="curso_id"/>
-                        <field name="coste"/>
-                    </group>
-                </sheet>
-            </form>
-        </field>
-    </record>
-
-    <!-- Acción Alumno -->
-    <record id="action_academia_alumno" model="ir.actions.act_window">
-        <field name="name">Alumnos</field>
-        <field name="res_model">academia.alumno</field>
-        <field name="view_mode">list,form</field>
-    </record>
-
-    <!-- ===================== -->
-    <!-- MENÚ PRINCIPAL -->
-    <!-- ===================== -->
-
-    <menuitem id="menu_academia_root" name="Academia"/>
-
-    <menuitem id="menu_academia_curso"
-              name="Cursos"
-              parent="menu_academia_root"
-              action="action_academia_curso"/>
-
-    <menuitem id="menu_academia_alumno"
-              name="Alumnos"
-              parent="menu_academia_root"
-              action="action_academia_alumno"/>
-
-</odoo>
-
-```
-
-vista de cursos con alumnos
-
-```bash
-<record id="view_academia_curso_form" model="ir.ui.view">
-    <field name="name">academia.curso.form</field>
-    <field name="model">academia.curso</field>
-    <field name="arch" type="xml">
-        <form>
-            <sheet>
-                <group>
-                    <field name="name"/>
-                    <field name="precio"/>
-                </group>
-                <notebook>
-                    <page string="Alumnos">
-                        <field name="alumno_ids">
-                            <tree>
-                                <field name="name"/>
-                                <field name="edad"/>
-                                <field name="coste"/>
-                            </tree>
-                        </field>
-                    </page>
-                </notebook>
-            </sheet>
-        </form>
-    </field>
-</record>
-
-```
 ---
 
 ## 6. Crear acciones y menús
@@ -314,23 +148,24 @@ views/menu.xml
 ```bash
 <record id="action_modelo" model="ir.actions.act_window">
     <field name="name">Modelos</field>
-    <field name="res_model">modulo.modelo</field>
+    <field name="res_model">modulo.clase</field>
     <field name="view_mode">list,form</field>
 </record>
 
 <menuitem id="menu_modulo_root"
-          name="Mi Módulo"
+          name="Módulo"
           sequence="10"
           groups="base.group_user"/>
 
-<menuitem id="menu_modelo"
-          name="Modelos"
+<menuitem id="menu_clase"
+          name="Clase"
           parent="menu_modulo_root"
-          action="action_modelo"
+          action="action_clase"
           sequence="10"
           groups="base.group_user"/>
 ```
 
-Los menús pueden no verse si no tienen grupo.
+Los menús pueden no verse si no tienen grupo. Sequence es el orden en que aparecen en el menú, cuanto más bajo el número antes aparece, 
+si no ponemos nada aparece en el orden del XML. Grupos tambien se puede dejar vacío y funciona, normalmente.
 
 ---
