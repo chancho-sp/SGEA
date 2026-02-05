@@ -1,6 +1,7 @@
 # Módulos Odoo
 
-Guía paso a paso para crear módulos en Odoo.
+Guía paso a paso para crear módulos en Odoo. Primero, crearemos la estructura básica de archivos con scaffold,
+después ya podremos empezar a editar los archivos con VSCode.
 
 ---
 
