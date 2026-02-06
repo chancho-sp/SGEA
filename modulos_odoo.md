@@ -1,7 +1,8 @@
 # Módulos Odoo
 
-Guía paso a paso para crear módulos en Odoo. Primero, crearemos la estructura básica de archivos con scaffold,
-después ya podremos empezar a editar los archivos con VSCode.
+Guía paso a paso para crear módulos en Odoo. Primero, entraremos en el contenedor de Odoo con el comando docker exec -it odoo-web bash,
+después crearemos la estructura básica de archivos con odoo scaffold nombre-módulo /mnt/extra-addons, después ya podremos empezar a editar 
+los archivos con VSCode.
 
 ---
 
